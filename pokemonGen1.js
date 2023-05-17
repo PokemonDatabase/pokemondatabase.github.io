@@ -13,7 +13,7 @@ const pokemonGen1 = [{
             spDefense: 65,
             speed: 45
         },
-        sprite: "SpritesGen1/bulbasaur.gif",
+        sprite: "SpritesGen1/Bulbasaur.gif",
 
     },
     {
