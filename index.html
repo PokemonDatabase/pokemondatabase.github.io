@@ -1,1 +1,511 @@
-This page is currently under construction.
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PokeDB</title>
+  <style>
+    body {
+  /*background: linear-gradient(to bottom, #ffcb05, #c40305);
+  background-attachment: fixed;
+  background-size: cover;*/
+  background-color: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 50px auto;
+  max-width: 600px;
+}
+
+#prevent-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none; /* Standard syntax */
+}
+
+/* Additional styles for Pokémon-themed elements */
+h1 {
+  color: #fff;
+  text-shadow: 2px 2px #000;
+}
+
+p {
+  font-size: 18px;
+  line-height: 1.5;
+  text-shadow: 1px 1px #000;
+}
+
+a {
+  color: #ffcb05;
+  text-decoration: none;
+}
+
+a:hover {
+  border-color: transparent;
+}
+
+#logo {
+  width: 62.5%;
+  height: 62.5%;
+  margin: 0px 0px 20px 0px;
+}
+
+#pokemon-sprite {
+  width: 33%;
+  height: 33%;
+}
+
+.dropdown-content img {
+  max-width: 50px;
+  max-height: 50px;
+  margin: 0 auto;  
+}
+
+#inputContainer {
+  position: relative;
+  display: inline-block;
+}
+
+#searchInput {
+  padding-right: 30px; /* Add padding on the right for the clear button */
+}
+
+#clearButton {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  display: none;
+  cursor: pointer;
+  z-index: 1;
+  background: none;
+  border: none;
+  color: #999;
+}
+
+#clearButton:hover {
+  color: #666;
+}
+
+#searchContainer {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+#searchInput {
+  color: #fff;
+  background-color: #000;
+  border: 1px solid #fff;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+#searchButton,
+#gen1Button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #e62117;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#pokemonDropdown {
+  color: #fff;
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  z-index: 1;
+  background-color: #000;
+  border: 3px solid #fff;
+  border-radius: 8px;
+  border-top: none;
+  width: calc(57.5%);
+  max-height: 200px;
+  overflow-y: auto;
+  display: none;
+}
+
+#pokemonDropdown ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#pokemonDropdown li {
+  list-style-type: none;
+  cursor: pointer;
+  padding: 5px;
+  border: 1px solid #fff;
+}
+
+#pokemonDropdown li:hover {
+  background-color: #ddd;
+}
+
+#displayStats {
+  margin-top: 20px;
+}
+
+#pokemonList {
+  list-style-type: none;
+  padding: 0;
+  display: none;
+}
+
+#pokemonList li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#pokemonList li img {
+  margin-right: 10px;
+}
+
+.pokemon-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin-bottom: 20px;
+  animation: pokemon-card-anim 1s;
+}
+
+.pokemon-card h2 {
+  color: #000;
+}
+
+.pokemon-card p {
+  margin: 5px 0;
+}
+
+.pokemon-type-normal {
+  background-color: #A8A878; /* Normal */
+}
+
+.pokemon-type-fire {
+  background-color: #F08030; /* Fire */
+}
+
+.pokemon-type-water {
+  background-color: #6890F0; /* Water */
+}
+
+.pokemon-type-electric {
+background-color: #F8D030; /* Electric */
+}
+
+.pokemon-type-grass {
+background-color: #78C850; /* Grass */
+}
+
+.pokemon-type-ice {
+background-color: #98D8D8; /* Ice */
+}
+
+.pokemon-type-fighting {
+background-color: #C03028; /* Fighting */
+}
+
+.pokemon-type-poison {
+background-color: #A040A0; /* Poison */
+}
+
+.pokemon-type-ground {
+background-color: #E0C068; /* Ground */
+}
+
+.pokemon-type-flying {
+background-color: #A890F0; /* Flying */
+}
+
+.pokemon-type-psychic {
+background-color: #F85888; /* Psychic */
+}
+
+.pokemon-type-bug {
+background-color: #A8B820; /* Bug */
+}
+
+.pokemon-type-rock {
+background-color: #B8A038; /* Rock */
+}
+
+.pokemon-type-ghost {
+background-color: #705898; /* Ghost */
+}
+
+.pokemon-type-dragon {
+background-color: #7038F8; /* Dragon */
+}
+
+.pokemon-type-dark {
+background-color: #705848; /* Dark */
+}
+
+.pokemon-type-steel {
+background-color: #B8B8D0; /* Steel */
+}
+
+.pokemon-type-fairy {
+background-color: #EE99AC; /* Fairy */
+}
+
+@keyframes pokemon-card-anim {
+0% {
+transform: rotateY(0);
+}
+10% {
+transform: rotateY(180deg);
+}
+100% {
+transform: rotateY(360deg);
+}
+}
+
+  </style>
+</head>
+<body id="prevent-select" style="display: none;">
+  <a href="index.html">
+    <img id="logo" src="img/logo.png">
+  </a>
+  <div id="searchContainer">
+  <div id="inputContainer">
+    <input type="text" id="searchInput" placeholder="Enter Pokemon name or ID" autocomplete="off" />
+    <span id="clearButton">&times;</span>
+  </div>
+  <div id="pokemonDropdown" class="autocomplete-items"></div>
+  <button id="searchButton">Search</button>
+  <button id="gen1Button">Gen1</button>
+</div>
+  <div id="displayStats"></div>
+  <script src="pokemonGen1.js"></script>
+  <script>
+      
+      // Hide the body initially
+    document.body.style.display = "none";
+
+    // Function to show the body once all scripts are loaded
+    function showPage() {
+      document.body.style.display = "block";
+    }
+
+    // Add an event listener for the "load" event to trigger the showPage() function
+    window.addEventListener("load", showPage);
+      
+      
+      
+    function findPokemon(input) {
+      if (!isNaN(input)) {
+        // Search by ID
+        const pokemon = Object.values(pokemonGen1).find(p => p.id === parseInt(input));
+        return pokemon ? pokemon : null;
+      } else {
+        // Search by name
+        const lowercaseInput = input.toLowerCase();
+        for (var key in pokemonGen1) {
+          if (pokemonGen1.hasOwnProperty(key) && pokemonGen1[key].name.toLowerCase() === lowercaseInput) {
+            return pokemonGen1[key];
+          }
+        }
+      }
+      return null;
+    }
+
+    function displayPokemon(pokemon) {
+      var displayDiv = document.getElementById("displayStats");
+
+      if (pokemon) {
+        // Assign the type class to the Pokemon card
+        var typeClass = pokemon.type.map(type => "pokemon-type-" + type.toLowerCase()).join(" ");
+        var cardHTML = `
+          <div class="pokemon-card ${typeClass}">
+            <h2>${pokemon.name}</h2>
+            <img id="pokemon-sprite" src="${pokemon.sprite}" alt="${pokemon.name}" />
+            <p>Type: ${pokemon.type.join(", ")}</p>
+            <p>Moves: ${pokemon.moves.join(", ")}</p>
+            <p>Description: ${pokemon.description}</p>
+            <h3>Stats:</h3>
+            <p>HP: ${pokemon.stats.hp}</p>
+            <p>Attack: ${pokemon.stats.attack}</p>
+            <p>Defense: ${pokemon.stats.defense}</p>
+            <p>Special Attack: ${pokemon.stats.spAttack}</p>
+            <p>Special Defense: ${pokemon.stats.spDefense}</p>
+                      <p>Speed: ${pokemon.stats.speed}</p>
+          </div>
+        `;
+        displayDiv.innerHTML = cardHTML;
+      } else {
+        displayDiv.innerHTML = "<p>Pokémon not found.</p>";
+      }
+    }
+
+    function searchPokemon() {
+  var input = document.getElementById("searchInput").value.toLowerCase();
+  var pokemon = findPokemon(input);
+  displayPokemon(pokemon);
+
+  // Show the clear button if a Pokémon is found
+  var clearButton = document.getElementById("clearButton");
+  clearButton.style.display = pokemon ? "block" : "none";
+}
+
+
+
+    function updateDropdown(input) {
+  var dropdown = document.getElementById("pokemonDropdown");
+  dropdown.innerHTML = ""; // Clear the previous dropdown items
+
+  if (input.length === 0) {
+    dropdown.style.display = "none";
+    return;
+  }
+
+  var matchingPokemon = Object.values(pokemonGen1).filter(pokemon =>
+    pokemon.name.toLowerCase().includes(input) || pokemon.id.toString().includes(input)
+  );
+
+  if (matchingPokemon.length > 0) {
+    matchingPokemon.forEach(pokemon => {
+      var listItem = document.createElement("li");
+
+      // Create a div to hold the ID, image, and name
+      var contentDiv = document.createElement("div");
+      contentDiv.classList.add("dropdown-content");
+
+      // Create elements for ID, image, and name
+      var idSpan = document.createElement("span");
+      idSpan.textContent = pokemon.id;
+
+      var image = document.createElement("img");
+      image.src = pokemon.sprite;
+      image.alt = pokemon.name;
+      image.style.width = "50%"; // Set image width to 50%
+
+      var nameSpan = document.createElement("span");
+      nameSpan.textContent = pokemon.name;
+
+      // Append ID, image, and name elements to the content div
+      contentDiv.appendChild(idSpan);
+      contentDiv.appendChild(image);
+      contentDiv.appendChild(nameSpan);
+
+      listItem.appendChild(contentDiv);
+
+      listItem.addEventListener("click", function () {
+  document.getElementById("searchInput").value = pokemon.name;
+  dropdown.style.display = "none";
+  searchPokemon();
+  clearButton.style.display = "block"; // Show the clear button
+});
+
+
+
+
+
+      dropdown.appendChild(listItem);
+    });
+
+    dropdown.style.display = "block";
+  } else {
+    dropdown.style.display = "none";
+  }
+}
+
+
+
+  
+
+    function showGen1PokemonList() {
+  document.getElementById("searchInput").value = ""; // Clear the search input
+
+  var displayDiv = document.getElementById("displayStats");
+
+  // Clear the existing content
+  displayDiv.innerHTML = "";
+
+  var listDiv = document.createElement("div");
+  listDiv.id = "pokemonList";
+
+  var listHeader = document.createElement("h2");
+  listHeader.id = "pokemonListHeader";
+  listHeader.innerText = "Gen1 Pokémon:";
+
+  var pokemonListHTML = Object.values(pokemonGen1)
+    .map(
+      (pokemon) =>
+        `<li>${pokemon.id}: <img src="${pokemon.sprite}" alt="${pokemon.name}" width="30" height="30"> ${pokemon.name}</li>`
+    )
+    .join("");
+
+  var ul = document.createElement("ul");
+  ul.innerHTML = pokemonListHTML;
+
+  // Add event listener to each list item
+  ul.querySelectorAll("li").forEach(function (li) {
+    var pokemonName = li.innerText.split(":")[1].trim();
+    li.addEventListener("click", function () {
+      document.getElementById("searchInput").value = pokemonName;
+      dropdown.style.display = "none";
+      searchPokemon();
+    });
+  });
+
+  listDiv.appendChild(listHeader);
+  listDiv.appendChild(ul);
+
+  displayDiv.appendChild(listDiv);
+
+  // Toggle the visibility of the list
+  listDiv.style.display = "block";
+}
+
+
+
+var clearButton = document.getElementById("clearButton");
+var searchInput = document.getElementById("searchInput");
+
+clearButton.addEventListener("click", function() {
+  searchInput.value = "";
+  clearButton.style.display = "none";
+});
+
+searchInput.addEventListener("input", function() {
+  clearButton.style.display = this.value !== "" ? "block" : "none";
+});
+
+// Add this code to hide the clear button when the input is empty
+clearButton.style.display = searchInput.value !== "" ? "block" : "none";
+
+
+
+
+    var searchInput = document.getElementById("searchInput");
+    var searchButton = document.getElementById("searchButton");
+    var gen1Button = document.getElementById("gen1Button");
+    var dropdown = document.getElementById("pokemonDropdown");
+
+    searchButton.addEventListener("click", searchPokemon);
+   gen1Button.addEventListener("click", showGen1PokemonList);
+
+    searchInput.addEventListener("input", function() {
+  updateDropdown(this.value.toLowerCase());
+});
+
+
+    document.addEventListener("click", function (event) {
+      if (!searchInput.contains(event.target) && !dropdown.contains(event.target)) {
+        dropdown.style.display = "none";
+      }
+    });
+  </script>
+  
+ Pokémon images & names © 1995-2023 Nintendo.
+</body>
+</html>
+
